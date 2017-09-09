@@ -1,0 +1,81 @@
+﻿@using IdentityApp.Models
+@using Microsoft.AspNet.Identity.EntityFramework
+@model RegisterViewModel
+@{
+    <div>
+        <h3>Users</h3>
+        <table>
+            <tr class="header">
+                <td>
+                    <p><b>Id</b></p>
+                </td>
+                <td>
+                    <p><b>Email</b></p>
+                </td>
+                <td>
+                    <p><b>UserName</b></p>
+                </td>
+                <td>
+                    <p><b>Roles</b></p>
+                </td>
+            </tr>
+            @foreach (var u in ViewData["users"] as List<ApplicationUser>)
+            {
+                <tr>
+                    <td>
+                        <p>@u.Id</p>
+                    </td>
+                    <td>
+                        <p>@u.Email</p>
+                    </td>
+                    <td>
+                        <p>@u.UserName</p>
+                    </td>
+                    <td>
+                        <p>
+                            @foreach (var role in ViewData["roles"] as List<IdentityRole>)
+                            {
+                                foreach (var userRole in u.Roles)
+                                {
+                                    if (userRole.RoleId == role.Id)
+                                    {
+                                        @String.Concat(role.Name, "; ")
+                                    }
+                                }
+                            }
+                        </p>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <form action="/Account/Register" method="POST">
+        @Html.AntiForgeryToken()
+        <div>
+            <span><b>User name: </b></span>
+            <input type="text" name="userName" />
+        </div>
+        <div>
+            <span><b>Email: </b></span>
+            <input type="text" name="email" />
+        </div>
+        <div>
+            <span><b>Password: </b></span>
+            <input type="text" name="password" />
+        </div>
+        <div>
+            <span><b>Confirm password: </b></span>
+            <input type="text" name="confirmPassword" />
+        </div>
+        <div>
+            <input type="submit" class="btn btn-info" value="Register" />
+        </div>
+    </form>
+
+    <script>
+        function register() {
+
+        }
+    </script>
+}
