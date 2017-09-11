@@ -14,6 +14,21 @@ namespace IdentityApp.Models
         public bool BrowserRemembered { get; set; }
     }
 
+    public class UserViewModel
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public int Age { get; set; }
+        public string Gender { get; set; }
+        public List<RoleViewModel> Roles { get; set; }
+    }
+
+    public class RoleViewModel
+    {
+        public string Name { get; set; }
+        public string Id { get; set; }
+    }
+
     public class ManageLoginsViewModel
     {
         public IList<UserLoginInfo> CurrentLogins { get; set; }
