@@ -10,8 +10,11 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using Twilio;
 using IdentityApp.Models;
 using System.Net.Mail;
+using Twilio.Types;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace IdentityApp
 {
@@ -43,7 +46,18 @@ namespace IdentityApp
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your SMS service here to send a text message.
+            string AccountSid = "*****";
+
+            string AuthToken = "*****";
+
+            TwilioClient.Init(AccountSid, AuthToken);
+
+            var to = new PhoneNumber(message.Destination);
+            var msg = MessageResource.Create(
+              to,
+              from: new PhoneNumber("******"),
+              body: message.Body);
+            
             return Task.FromResult(0);
         }
     }

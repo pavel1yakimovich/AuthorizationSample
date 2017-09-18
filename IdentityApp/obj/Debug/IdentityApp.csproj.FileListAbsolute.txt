@@ -117,3 +117,10 @@ E:\Samples\IdentityApp\IdentityApp\obj\Debug\IdentityApp.csprojResolveAssemblyRe
 E:\Samples\IdentityApp\IdentityApp\obj\Debug\IdentityApp.csproj.CoreCompileInputs.cache
 E:\Samples\IdentityApp\IdentityApp\obj\Debug\IdentityApp.dll
 E:\Samples\IdentityApp\IdentityApp\obj\Debug\IdentityApp.pdb
+E:\Samples\IdentityApp\IdentityApp\bin\Microsoft.IdentityModel.Logging.dll
+E:\Samples\IdentityApp\IdentityApp\bin\Microsoft.IdentityModel.Tokens.dll
+E:\Samples\IdentityApp\IdentityApp\bin\System.IdentityModel.Tokens.Jwt.dll
+E:\Samples\IdentityApp\IdentityApp\bin\Twilio.dll
+E:\Samples\IdentityApp\IdentityApp\bin\Microsoft.IdentityModel.Tokens.xml
+E:\Samples\IdentityApp\IdentityApp\bin\System.IdentityModel.Tokens.Jwt.xml
+E:\Samples\IdentityApp\IdentityApp\bin\Twilio.xml

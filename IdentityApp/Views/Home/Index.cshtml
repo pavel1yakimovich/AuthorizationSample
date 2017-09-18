@@ -21,6 +21,12 @@
                 <td>
                     <p><b>Email confirmed</b></p>
                 </td>
+                <td>
+                    <p><b>Phone</b></p>
+                </td>
+                <td>
+                    <p><b>Phone confirmed</b></p>
+                </td>
             </tr>
             @foreach (var u in ViewData["users"] as List<ApplicationUser>)
             {
@@ -50,6 +56,12 @@
                     </td>
                     <td>
                         <p>@u.EmailConfirmed</p>
+                    </td>
+                    <td>
+                        <p>@u.PhoneNumber</p>
+                    </td>
+                    <td>
+                        <p>@u.PhoneNumberConfirmed</p>
                     </td>
                 </tr>
             }
