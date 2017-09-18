@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using System.Net;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using IdentityApp.Models;
+using System.Net.Mail;
 
 namespace IdentityApp
 {
@@ -19,7 +20,22 @@ namespace IdentityApp
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            var from = "pavel1yakimovich@gmail.com";
+            var pswd = "**********";
+
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential(from, pswd);
+            smtp.EnableSsl = true;
+
+            var mail = new MailMessage(from, message.Destination);
+            mail.Body = message.Body;
+            mail.Subject = message.Subject;
+            mail.IsBodyHtml = true;
+
+            return smtp.SendMailAsync(mail);
         }
     }
 

@@ -18,6 +18,9 @@
                 <td>
                     <p><b>Roles</b></p>
                 </td>
+                <td>
+                    <p><b>Email confirmed</b></p>
+                </td>
             </tr>
             @foreach (var u in ViewData["users"] as List<ApplicationUser>)
             {
@@ -44,6 +47,9 @@
                                 }
                             }
                         </p>
+                    </td>
+                    <td>
+                        <p>@u.EmailConfirmed</p>
                     </td>
                 </tr>
             }
