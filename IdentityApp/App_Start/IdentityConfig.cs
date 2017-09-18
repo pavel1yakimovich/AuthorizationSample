@@ -51,14 +51,7 @@ namespace IdentityApp
             };
 
             // Configure validation logic for passwords
-            manager.PasswordValidator = new PasswordValidator
-            {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
-            };
+            manager.PasswordValidator = new CustomPasswordValidator(3);
 
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;
@@ -85,6 +78,25 @@ namespace IdentityApp
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
+        }
+    }
+
+    public class CustomPasswordValidator : PasswordValidator
+    {
+        public CustomPasswordValidator(int length)
+        {
+            RequiredLength = length;
+        }
+
+        public override Task<IdentityResult> ValidateAsync(string pswd)
+        {
+            if (String.IsNullOrEmpty(pswd) || pswd.Length < RequiredLength)
+            {
+                return Task.FromResult(IdentityResult.Failed(
+                                String.Format($"Min kength of the password is {RequiredLength}")));
+            }
+
+            return Task.FromResult(IdentityResult.Success);
         }
     }
 
