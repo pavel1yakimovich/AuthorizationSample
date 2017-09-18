@@ -44,11 +44,7 @@ namespace IdentityApp
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
-            manager.UserValidator = new UserValidator<ApplicationUser>(manager)
-            {
-                AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
-            };
+            manager.UserValidator = new CustomUserValidator(manager);
 
             // Configure validation logic for passwords
             manager.PasswordValidator = new CustomPasswordValidator(3);
@@ -78,6 +74,32 @@ namespace IdentityApp
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
+        }
+    }
+
+    public class CustomUserValidator : UserValidator<ApplicationUser>
+    {
+        public CustomUserValidator(ApplicationUserManager mng)
+            : base(mng)
+        {
+            AllowOnlyAlphanumericUserNames = false;
+        }
+        public override async Task<IdentityResult> ValidateAsync(ApplicationUser user)
+        {
+            IdentityResult result = await base.ValidateAsync(user);
+            if (user.Email.ToLower().EndsWith("@spam.com"))
+            {
+                var errors = result.Errors.ToList();
+                errors.Add("This domain is in spam-base. Choose another one");
+                result = new IdentityResult(errors);
+            }
+            if (user.UserName.Contains("admin"))
+            {
+                var errors = result.Errors.ToList();
+                errors.Add("Your login shouldn't contain the word 'admin'");
+                result = new IdentityResult(errors);
+            }
+            return result;
         }
     }
 
